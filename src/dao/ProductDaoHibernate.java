@@ -1,15 +1,12 @@
 package dao;
 
-import domain.Adres;
 import domain.OVChipkaart;
 import domain.Product;
-import domain.Reiziger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class ProductDaoHibernate implements ProductDao{

@@ -27,16 +27,7 @@ public class Reiziger {
         this.geboortedatum = geboortedatum;
     }
 
-    public Reiziger(int id, String voorletters, String tussenvoegsel, String achternaam, Date geboortedatum, Adres adres) {
-        this.reiziger_id = id;
-        this.voorletters = voorletters;
-        this.tussenvoegsel = tussenvoegsel;
-        this.achternaam = achternaam;
-        this.geboortedatum = geboortedatum;
-    }
-
     public Reiziger() {
-
     }
 
     public boolean voegToeOVChipkaart(OVChipkaart ovChipkaart){

@@ -12,7 +12,6 @@ import org.hibernate.query.Query;
 import javax.persistence.metamodel.EntityType;
 import javax.persistence.metamodel.Metamodel;
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -46,7 +45,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws SQLException {
-//        testFetchAll();
+        testFetchAll();
         AdresDaoHibernate adresDaoHibernate = new AdresDaoHibernate(factory);
         ReizigerDaoHibernate reizigerDaoHibernate = new ReizigerDaoHibernate(factory);
         OVChipkaartDaoHibernate ovChipkaartDaoHibernate = new OVChipkaartDaoHibernate(factory);
@@ -58,18 +57,21 @@ public class Main {
 
         //update Ovchipkaart met Reiziger en Product
         String gbdatum = "1981-03-14";
-        Reiziger sietske = new Reiziger(10000000, "S", "", "Boers", java.sql.Date.valueOf(gbdatum));
+
+        Reiziger reiziger1 = new Reiziger(10000, "S", "", "Boers", java.sql.Date.valueOf(gbdatum));
         OVChipkaart ovChipkaart = new OVChipkaart(333, java.sql.Date.valueOf(gbdatum), 3, 35);
-        Product product = new Product(333,"TESTTT","TESTEN",123);
-        ovChipkaart.setReiziger(sietske);
-        sietske.voegToeOVChipkaart(ovChipkaart);
+
+        Product product = new Product(333,"TEST","TESTEN",123);
+        ovChipkaart.setReiziger(reiziger1);
+        reiziger1.voegToeOVChipkaart(ovChipkaart);
         ovChipkaart.addProduct(product);
         ovChipkaartDao.update(ovChipkaart);
-        System.out.println(sietske);
+        System.out.println(reiziger1);
 
         //Update Reiziger met Adres
         Adres adres = new Adres(40000,"1111AA","1","dorpstraat","utrecht");
         Reiziger reiziger2 = new Reiziger(123,"T","","Zegel",java.sql.Date.valueOf(gbdatum));
+
         adres.setReiziger(reiziger2);
         ovChipkaart.setReiziger(reiziger2);
         reiziger2.setAdres(adres);
@@ -80,23 +82,25 @@ public class Main {
         Reiziger reiziger = reizigerDao.findById(1);
         System.out.println("Reiziger : " + reiziger);
         List<Reiziger> reizigers = reizigerDao.findByGbdatum(gbdatum);
-        for(Reiziger reiziger1 : reizigers){
-            System.out.println(reiziger1);
+        for(Reiziger reiz : reizigers){
+            System.out.println(reiz);
         }
 
-        //update alles
-        Reiziger reiziger1 = new Reiziger(400002,"T","","Zegeling",java.sql.Date.valueOf(gbdatum));
-        Adres adres1 = new Adres(400002,"1111AA","1","dorpstraat","utrecht");
-        OVChipkaart ovChipkaart4 = new OVChipkaart(403, java.sql.Date.valueOf(gbdatum), 3, 35);
-        Product product1 = new Product(7654321,"prod","nslkhfk",135);
+        //Save alles
+        Reiziger reiziger3 = new Reiziger(30,"T","","Zegeling",java.sql.Date.valueOf(gbdatum));
+        Adres adres1 = new Adres(40,"1111AA","1","dorpstraat","utrecht");
+        OVChipkaart ovChipkaart4 = new OVChipkaart(500000, java.sql.Date.valueOf(gbdatum), 3, 35);
+        Product product1 = new Product(60,"prod","product beschrijving",135);
+
         ovChipkaart4.addProduct(product1);
-        adres1.setReiziger(reiziger1);
-        reiziger1.setAdres(adres1);
-        reiziger1.voegToeOVChipkaart(ovChipkaart4);
-        ovChipkaart4.setReiziger(reiziger1);
-        reizigerDao.update(reiziger1);
-        System.out.println("\nReiziger: " + reiziger1);
+        adres1.setReiziger(reiziger3);
+        reiziger3.setAdres(adres1);
+        reiziger3.voegToeOVChipkaart(ovChipkaart4);
+        ovChipkaart4.setReiziger(reiziger3);
+        reizigerDao.save(reiziger1);
+        System.out.println("\nReiziger: " + reiziger3);
         System.out.println("\nAdres: " + adres1);
+
     }
 
     /**
