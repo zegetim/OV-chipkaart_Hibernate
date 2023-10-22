@@ -71,4 +71,20 @@ public class OVChipkaartDaoHibernate implements OVChipkaartDao {
         }
         return null;
     }
+
+    @Override
+    public List<OVChipkaart> findAll() {
+        try {
+            Session session = sessionFactory.openSession();
+            Transaction transaction = session.beginTransaction();
+            List<OVChipkaart> ovkaarten = session.createQuery("FROM OVChipkaart", OVChipkaart.class).getResultList();
+            transaction.commit();
+            return ovkaarten;
+        } catch(HibernateException exception){
+            exception.printStackTrace();
+        }
+        return null;
+    }
+
+
 }

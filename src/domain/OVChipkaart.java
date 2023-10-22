@@ -17,7 +17,7 @@ public class OVChipkaart {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reiziger_id")
     private Reiziger reiziger;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     @JoinTable(name="ov_chipkaart_product", joinColumns = @JoinColumn(name = "kaart_nummer"),
             inverseJoinColumns = @JoinColumn(name = "product_nummer"))
     private List<Product> producten = new ArrayList<>();
